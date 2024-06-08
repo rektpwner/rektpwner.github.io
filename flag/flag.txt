@@ -1,0 +1,1 @@
+Chaque clef est une lettre (man ascii) et chaque lettre donne un mot anglais.

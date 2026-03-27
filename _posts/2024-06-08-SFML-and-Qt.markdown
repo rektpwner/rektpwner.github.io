@@ -12,15 +12,15 @@ Ce cours nécessite les compétences suivantes:
 
 ## Pourquoi vouloir intégrer la SFML dans Qt ?
 
-Mon objectif d'origine était la création d'un jeu vidéo 2D en utilisant la SFML (Simple and Fast Multimedia Library), cependant la SFML n'a pas été conçu pour gérer les fenêtres de manière avancée. C'est pour cette raison que je souhaitais l'intégrer à Qt, qui permet de créer des fenêtres complète et plus facilement (en utilisant Qt Designer, par exemple).
+Mon objectif d'origine était la création d'un jeu vidéo 2D en utilisant la SFML (Simple and Fast Multimedia Library), cependant la SFML n'a pas été conçu pour gérer les fenêtres de manière avancée. C'est pour cette raison que je souhaitais l'intégrer à Qt, qui permet de créer des fenêtres complètes et plus facilement (en utilisant Qt Designer, par exemple).
 
-Un système de fenêtrage peut être utile pour concevoir le client d'un jeu vidéo mais est indispensable quand il s'agit de concevoir le logiciel qui permet l'édition de carte du jeu vidéo.
+Un système de fenêtrage peut être utile pour concevoir le client d'un jeu vidéo, mais est indispensable quand il s'agit de concevoir le logiciel qui permet l'édition de carte du jeu vidéo.
 
-Je vous conseil cependant d'être attentif aux licenses de ces bibliothèques dans le cas où vous souhaiteriez créer un jeu vidéo commercial.
+Je vous conseille cependant d'être attentif aux licences de ces bibliothèques dans le cas où vous souhaiteriez créer un jeu vidéo commercial.
 
 ## Outils et versions
 
-Afin d'obtenir une intégration fonctionnelle vous pourriez utiliser les mêmes versions logiciels que ceux que j'ai utilisé dans ce cours. J'ai pour ma part installé les dernières versions disponibles de ces outils, vous pourriez tout d'abord tenter d'utiliser les versions les plus à jour de chaque logiciel puis, en cas de problème d'intégration, vous baser sur les versions de la liste ci-dessous:
+Afin d'obtenir une intégration fonctionnelle, vous pourriez utiliser les mêmes versions logicielles que ceux que j'ai utilisé dans ce cours. J'ai pour ma part installé les dernières versions disponibles de ces outils, vous pourriez tout d'abord tenter d'utiliser les versions les plus à jour de chaque logiciel puis, en cas de problème d'intégration, vous baser sur les versions de la liste ci-dessous:
 
 - Date du test: le 8 juin 2024
 - Système d'exploitation: Windows 10
@@ -90,7 +90,7 @@ Vous pouvez dès à présent télécharger la SFML: [https://www.sfml-dev.org/do
 
 Décompressez-le dans le dossier de votre choix ou dans le dossier de votre projet (si vous ne souhaitez faire qu'un seul projet qui utilise la SFML).
 
-De la même manière que pour Qt, vous pouvez tester le fonctionnement de la SFML avec un code minimal
+De la même manière que pour Qt, vous pouvez tester le fonctionnement de la SFML avec un code minimal.
 
 Par exemple:
 
@@ -274,9 +274,9 @@ Tout d'abord, intéressons nous au fichier `sfmlwidget.h`:
 
 La ligne suivante: `class SFMLWidget : public QWidget {` permet de créer un object `SFMLWidget` qui hérite de l'object `QWidget` (la classe de base de tous les widgets Qt), cela permet de récupérer l'ensemble des méthodes Qt utiles afin de pouvoir placer correctement cet élément dans la fenêtre principale: [https://doc.qt.io/qt-6/qwidget.html](https://doc.qt.io/qt-6/qwidget.html)
 
-Ainsi la SFML peut gérer le rendu graphique tout en laissant Qt gérer l'interface utilisateur.
+Ainsi, la SFML peut gérer le rendu graphique tout en laissant Qt gérer l'interface utilisateur.
 
-La macro `Q_OBJECT` est ignoré dans le cas où vous utilisez `qmake`, je l'ai ajouté pour éviter d'avoir des problèmes avec ce code dans le cas où vous ne souhaitez pas utiliser `qmake` pour compiler ce code, je vous conseil de `rebuild` entièrement le project dans le cas où vous ajouteriez cette macro après une première compilation et que vous n'utilisez pas `qmake`.
+La macro `Q_OBJECT` est ignoré dans le cas où vous utiliseriez `qmake`, je l'ai ajouté pour éviter d'avoir des problèmes avec ce code dans le cas où vous ne souhaiteriez pas utiliser `qmake` pour compiler ce code, je vous conseil de `rebuild` entièrement le project dans le cas où vous ajouteriez cette macro après une première compilation et que vous n'utilisez pas `qmake`.
 Cette macro permet d'ajouter des fonctionnalités de type `signals et slots` ou autres propriétés avancées de Qt, plus d'information ici: [https://doc.qt.io/qt-6/moc.html](https://doc.qt.io/qt-6/moc.html)
 
 La suite:
@@ -294,7 +294,7 @@ Le mot-clef `virtual` aurait pu être omis sur chaque méthode, cependant, pour 
 
 Cette liste de méthodes sont fournis grâce à l'héritage de QWidget, toute l'astuce de l'intégration de la SFML dans Qt se trouve ici.
 Nous souhaitons effectuer une redéfinition (et non une surcharge) de ces méthodes présente dans l'object parent hérité: `QWidget`
-Le mot-clef `override` permet de nous prévenir le compilateur que nous souhaitons exclusivement faire une redéfinition, cela permet de remonter une erreur lors de la compilation dans le cas où les deux méthodes ont le même nom (enfant et parent) mais que la signature de la méthode change (donc une surcharge non-voulue). Il est préférable d'obtenir une erreur à la compilation plutôt que d'avoir un comportement inattendu et difficile à debug lors du lancement.
+Le mot-clef `override` permet de nous prévenir le compilateur que nous souhaitons exclusivement faire une redéfinition, cela permet de remonter une erreur lors de la compilation dans le cas où les deux méthodes auraient le même nom (enfant et parent) mais que la signature de la méthode change (donc une surcharge non-voulue). Il est préférable d'obtenir une erreur à la compilation plutôt que d'avoir un comportement inattendu et difficile à debug lors du lancement.
 
 L'objectif est de laisser la main à la SFML pour gérer ces méthodes:
 
@@ -315,13 +315,13 @@ Passons maintenant au fichier `sfmlwidget.cpp`:
 Et on commence avec le constructeur:
 
 `setAttribute(Qt::WA_PaintOnScreen);`
-- Cette ligne indique à Qt que le widget va gérer son propre rendu directement à l'écran car par défaut, Qt utilise un système de double buffering pour dessiner sur des widgets afin de réduire le scintillement et les artefacts visuels. En désactivant ce comportement de Qt cela permet à la SFML de dessiner directement sur l'écran. C'est une étape nécessaire pour intégrer des bibliothèques graphiques externes comme la SFML qui gère son propre rendu et sans bénéficier du double buffering de Qt.
+- Cette ligne indique à Qt que le widget va gérer son propre rendu directement à l'écran, car par défaut, Qt utilise un système de double buffering pour dessiner sur des widgets afin de réduire le scintillement et les artefacts visuels. En désactivant ce comportement de Qt cela permet à la SFML de dessiner directement sur l'écran. C'est une étape nécessaire pour intégrer des bibliothèques graphiques externes comme la SFML qui gère son propre rendu et sans bénéficier du double buffering de Qt.
 
 `setAttribute(Qt::WA_OpaquePaintEvent);`
 - Cela indique à la fenêtre Qt que le widget gère l'intégralité de son propre contenu et que Qt n'a pas besoin d'effacer l'arrière-plan avant de dessiner. Ce qui évite un effacement inutile de l'arrière-plan et qui pourrait causer des artefacts visuels ou des conflits avec le rendu de SFML, améliore également les performances.
 
 `setAttribute(Qt::WA_NoSystemBackground);`
-- Ceci va permettre d'empêche Qt de dessiner l'arrière-plan du widget (comportement par défaut de Qt) ce qui pourrait interférer avec le rendu de SFML, cela afin que ce soit la SFML qui assure un contrôle complet sur ce qui est dessiné dans le widget, sans interférence de Qt.
+- Ceci va permettre d'empêcher Qt de dessiner l'arrière-plan du widget (comportement par défaut de Qt) ce qui pourrait interférer avec le rendu de SFML, cela afin que ce soit la SFML qui assure un contrôle complet sur ce qui est dessiné dans le widget, sans interférence de Qt.
 
 `setFocusPolicy(Qt::StrongFocus);`
 - Ici se définit la politique de gestion du focus pour le widget ce qui va permettre au widget de recevoir le focus à la fois via un événement clavier que souris, particulièrement utile pour les applications interactives comme les jeux vidéos, par exemple.
@@ -329,7 +329,7 @@ Et on commence avec le constructeur:
 La méthode `showEvent` :
 
 `if (!mRenderWindow.isOpen()) {`
-- garantit que l'initialisation de la fenêtre SFML ne se fait qu'une seule fois, même si la méthode `showEvent` est appelée plusieurs fois, permet d'éviter des réinitialisations inutiles ou des conflits d'initialisation.
+- Garantis que l'initialisation de la fenêtre SFML ne se fait qu'une seule fois, même si la méthode `showEvent` est appelée plusieurs fois, permet d'éviter des réinitialisations inutiles ou des conflits d'initialisation.
 
 La ligne `mRenderWindow.create(reinterpret_cast<sf::WindowHandle>(winId()));` est très particulière:
 - Pour commencer `winId()` qui est une méthode de `QWidget` retourne l'identifiant natif de la fenêtre Qt (aussi appelé un handle sous Windows) qui est un identifiant unique d'une fenêtre, il est géré par le système d'exploitation (chaque système d'exploitation (Windows, macOS, Linux...) a son propre mécanisme pour gérer les fenêtres et autres ressources graphiques).
@@ -349,13 +349,13 @@ Lancez le programme et vous obtiendrez plusieurs erreurs du type:
 
 [...]
 
-Ces erreurs lors de l'ouverture de l'application signifie que l'application utilise des fonctions externes et qu'il a été compilé *dynamiquement*, donc que la résolution de ces fonctions (la recherche du code de ces fonctions dans les .dll) se fait pendant l'exécution du programme.
+Ces erreurs lors de l'ouverture de l'application signifient que l'application utilise des fonctions externes et qu'il a été compilé *dynamiquement*, donc que la résolution de ces fonctions (la recherche du code de ces fonctions dans les .dll) se fait pendant l'exécution du programme.
 
 Il y a deux solutions pour résoudre ce problème:
-- La première solution, continuer à compiler dynamiquement l'application et placer les fichiers .dll manquants dans le même dossier que celui de l'application.
+- La première solution, continuer à compiler dynamiquement l'application et à placer les fichiers .dll manquants dans le même dossier que celui de l'application.
 - La seconde solution, compiler statiquement l'application
 
-Je ne détaillerai pas ici tous les avantages et inconvénients de ces deux méthodes, n'hésitez pas à faire vos propres recherches pour en apprendre davantage.
+Je ne détaillerai pas ici tous les avantages et les inconvénients de ces deux méthodes, n'hésitez pas à faire vos propres recherches pour en apprendre davantage.
 
 #### Première solution - la compilation dynamique
 
@@ -375,7 +375,7 @@ Vous pourriez également opter pour une alternative: [https://wiki.qt.io/CQtDepl
 
 #### Deuxième solution - la compilation statique
 
-Cette méthode permet d'inclure directement le code des fonctions externes à l'intérieur de l'application, ainsi il n'est plus nécessaire d'avoir des fichiers .dll dans le même dossier afin de faire fonctionner l'application, le fichier .exe seul suffit.
+Cette méthode permet d'inclure directement le code des fonctions externes à l'intérieur de l'application, ainsi, il n'est plus nécessaire d'avoir des fichiers .dll dans le même dossier afin de faire fonctionner l'application, le fichier .exe seul suffit.
 
 Pour réaliser cela, nous allons modifier le contenu du fichier `.pro`:
 
@@ -573,23 +573,23 @@ void SFMLWidget::render() {
 
 {% endhighlight %}
 
-Vous devez maintenant utiliser l'interface de Qt Designer pour placer votre widget, rendez-vous dans le fichier `mainwindow.ui` puis cherchez le `Containers` qui se nomme `Widget`, effectuez un glissez-déposez dans votre fenêtre.
+Vous devez maintenant utiliser l'interface de Qt Designer pour placer votre widget, rendez-vous dans le fichier `mainwindow.ui`, puis cherchez le `Containers` qui se nomme `Widget`, effectuez un glissez-déposez dans votre fenêtre.
 
 Une fois placée, faites un `clic-droit` sur celui-ci > `Promote to...` > `SFMLWidget`.
 
 ### Explication
 
-Le code est assez similaire au précédent à l'exception de la ligne: `setFixedSize(300, 200);` qui a été enlevée afin que le rendu de la SFML s'adapte à la taille du widget que vous avez défini dans le fichier `mainwindow.ui`. Ce widget est donc toujours de taille fixe mais est maintenant configurable directement dans Qt Designer. Nous verrons plus tard comme créer un widget `SFMLWidget` responsive (c'est-à-dire qui dépend et s'adapte à la taille de la fenêtre Qt).
+Le code est assez similaire au précédent à l'exception de la ligne: `setFixedSize(300, 200);` qui a été enlevée afin que le rendu de la SFML s'adapte à la taille du widget que vous avez défini dans le fichier `mainwindow.ui`. Ce widget est donc toujours de taille fixe, mais est maintenant configurable directement dans Qt Designer. Nous verrons plus tard comme créer un widget `SFMLWidget` responsive (c'est-à-dire qui dépend et s'adapte à la taille de la fenêtre Qt).
 
 ### Lancement
 
-Vous pouvez maintenant lancer le programme est observer le résultat obtenu (j'ai ajouté des éléments au menuBar et un bouton en plus du widget, pour l'exemple).
+Vous pouvez maintenant lancer le programme et observer le résultat obtenu (j'ai ajouté des éléments au menuBar et un bouton en plus du widget, pour l'exemple).
 
 ![(Image not found) Fenêtre qui dessine un rond en SFML à l'intérieur d'une fenêtre Qt créée via Qt Designer]({{ site.baseurl }}/assets/SFMLWithQt2.png)
 
 ## Gestion des vues SFML dans Qt
 
-Félicitation ! Vous avez crée une fenêtre sur Qt Designer qui intègre un widget `SFMLWidget`, mais maintenant vous souhaitez aller plus loin ?
+Félicitations ! Vous avez créé une fenêtre sur Qt Designer qui intègre un widget `SFMLWidget`, mais maintenant vous souhaitez aller plus loin ?
 
 Je vous propose de permettre au widget `SFMLWidget` de s'adapter à la taille de la fenêtre sans déformer le rendu de la SFML.
 
@@ -603,7 +603,7 @@ Puis utilisez les icônes situés sur le haut de votre éditeur Qt Designer pour
 
 ![(Image not found) Layout de Qt Designer]({{ site.baseurl }}/assets/SFMLWithQt4.png)
 
-Les éléments présents dans votre fenêtre devrait s'aligner automatiquement par rapport aux proportions de la fenêtre.
+Les éléments présents dans votre fenêtre devraient s'aligner automatiquement par rapport aux proportions de la fenêtre.
 
 ![(Image not found) Application de l'alignement de Qt Designer]({{ site.baseurl }}/assets/SFMLWithQt5.png)
 

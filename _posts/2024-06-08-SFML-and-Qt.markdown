@@ -37,6 +37,8 @@ Afin d'obtenir une intégration fonctionnelle, vous pourriez utiliser les mêmes
         - Name: Qt 6.7.1 MinGW 64-bit
         - qmake path: C:\Qt\6.7.1\mingw_64\bin\qmake.exe
 
+Il est nécessaire d'utiliser la version SFML compatible avec le compilateur utilisé par Qt, sinon il sera nécessaire de recompiler la SFML depuis les sources avec la version compatible par le compilateur de Qt.
+
 ## Installation
 
 ### Qt

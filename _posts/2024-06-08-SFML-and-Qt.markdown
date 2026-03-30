@@ -579,7 +579,10 @@ void SFMLWidget::render() {
 
 Vous devez maintenant utiliser l'interface de Qt Designer pour placer votre widget, rendez-vous dans le fichier `mainwindow.ui`, puis cherchez le `Containers` qui se nomme `Widget`, effectuez un glissez-déposez dans votre fenêtre.
 
-Une fois placée, faites un `clic-droit` sur celui-ci > `Promote to...` > `SFMLWidget`.
+Une fois placée, faites un `clic-droit` sur celui-ci > `Promote to...` :
+- Base class name: `QWidget`
+- Promoted class name: `SFMLWidget`
+- Header file: `sfmlwidget.h`
 
 ### Explication
 

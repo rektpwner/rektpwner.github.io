@@ -39,6 +39,8 @@ Afin d'obtenir une intégration fonctionnelle, vous pourriez utiliser les mêmes
 
 Il est nécessaire d'utiliser la version SFML compatible avec le compilateur utilisé par Qt, sinon il sera nécessaire de recompiler la SFML depuis les sources avec la version compatible du compilateur utilisé par Qt.
 
+En cas du changement du fichier .pro de Qt (projet utilisant Qmake au lieu de CMake), il faut fermer Qt et supprimer le dossier build/ pour éviter des erreurs de compilation incohérentes.
+
 ## Installation
 
 ### Qt
